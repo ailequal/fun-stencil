@@ -32,11 +32,16 @@ export namespace Components {
         "column_resize_mode": ColumnResizeMode;
     }
     interface TableExpanding {
+        "checkbox": boolean;
     }
 }
 export interface SimpleCounterCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSimpleCounterElement;
+}
+export interface TableExpandingCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLTableExpandingElement;
 }
 declare global {
     interface HTMLEventListenerElement extends Components.EventListener, HTMLStencilElement {
@@ -104,6 +109,8 @@ declare namespace LocalJSX {
         "column_resize_mode"?: ColumnResizeMode;
     }
     interface TableExpanding {
+        "checkbox"?: boolean;
+        "onHandleSubmitData"?: (event: TableExpandingCustomEvent<string>) => void;
     }
     interface IntrinsicElements {
         "event-listener": EventListener;
