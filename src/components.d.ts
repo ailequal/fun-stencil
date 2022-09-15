@@ -31,6 +31,8 @@ export namespace Components {
     interface TableColumnSizing {
         "column_resize_mode": ColumnResizeMode;
     }
+    interface TableExpanding {
+    }
 }
 export interface SimpleCounterCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -61,11 +63,18 @@ declare global {
         prototype: HTMLTableColumnSizingElement;
         new (): HTMLTableColumnSizingElement;
     };
+    interface HTMLTableExpandingElement extends Components.TableExpanding, HTMLStencilElement {
+    }
+    var HTMLTableExpandingElement: {
+        prototype: HTMLTableExpandingElement;
+        new (): HTMLTableExpandingElement;
+    };
     interface HTMLElementTagNameMap {
         "event-listener": HTMLEventListenerElement;
         "my-component": HTMLMyComponentElement;
         "simple-counter": HTMLSimpleCounterElement;
         "table-column-sizing": HTMLTableColumnSizingElement;
+        "table-expanding": HTMLTableExpandingElement;
     }
 }
 declare namespace LocalJSX {
@@ -94,11 +103,14 @@ declare namespace LocalJSX {
     interface TableColumnSizing {
         "column_resize_mode"?: ColumnResizeMode;
     }
+    interface TableExpanding {
+    }
     interface IntrinsicElements {
         "event-listener": EventListener;
         "my-component": MyComponent;
         "simple-counter": SimpleCounter;
         "table-column-sizing": TableColumnSizing;
+        "table-expanding": TableExpanding;
     }
 }
 export { LocalJSX as JSX };
@@ -109,6 +121,7 @@ declare module "@stencil/core" {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
             "simple-counter": LocalJSX.SimpleCounter & JSXBase.HTMLAttributes<HTMLSimpleCounterElement>;
             "table-column-sizing": LocalJSX.TableColumnSizing & JSXBase.HTMLAttributes<HTMLTableColumnSizingElement>;
+            "table-expanding": LocalJSX.TableExpanding & JSXBase.HTMLAttributes<HTMLTableExpandingElement>;
         }
     }
 }
