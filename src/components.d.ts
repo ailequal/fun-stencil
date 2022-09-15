@@ -6,6 +6,8 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface EventListener {
+    }
     interface MyComponent {
         /**
           * The first name
@@ -31,6 +33,12 @@ export interface SimpleCounterCustomEvent<T> extends CustomEvent<T> {
     target: HTMLSimpleCounterElement;
 }
 declare global {
+    interface HTMLEventListenerElement extends Components.EventListener, HTMLStencilElement {
+    }
+    var HTMLEventListenerElement: {
+        prototype: HTMLEventListenerElement;
+        new (): HTMLEventListenerElement;
+    };
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
     }
     var HTMLMyComponentElement: {
@@ -44,11 +52,14 @@ declare global {
         new (): HTMLSimpleCounterElement;
     };
     interface HTMLElementTagNameMap {
+        "event-listener": HTMLEventListenerElement;
         "my-component": HTMLMyComponentElement;
         "simple-counter": HTMLSimpleCounterElement;
     }
 }
 declare namespace LocalJSX {
+    interface EventListener {
+    }
     interface MyComponent {
         /**
           * The first name
@@ -70,6 +81,7 @@ declare namespace LocalJSX {
         "onDidReset"?: (event: SimpleCounterCustomEvent<string>) => void;
     }
     interface IntrinsicElements {
+        "event-listener": EventListener;
         "my-component": MyComponent;
         "simple-counter": SimpleCounter;
     }
@@ -78,6 +90,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "event-listener": LocalJSX.EventListener & JSXBase.HTMLAttributes<HTMLEventListenerElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
             "simple-counter": LocalJSX.SimpleCounter & JSXBase.HTMLAttributes<HTMLSimpleCounterElement>;
         }
