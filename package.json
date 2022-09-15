@@ -26,7 +26,8 @@
     "generate": "stencil generate"
   },
   "dependencies": {
-    "@stencil/core": "^2.13.0"
+    "@stencil/core": "^2.13.0",
+    "@tanstack/table-core": "^8.5.13"
   },
   "devDependencies": {
     "@types/jest": "^27.0.3",
