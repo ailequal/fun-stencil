@@ -182,6 +182,8 @@ export class TableExpanding {
     Object.entries(rowSelection)
       .filter(row => !!row[1])
       .map(row => {
+        // TODO: If we try to submit a row that is showing without it's parent due to one or more filters applied,
+        //  the getRow() method might fail! Maybe we should retrieve the data in some other way?
         const firstName = this.table.getRow(row[0]).getValue('firstName') as string;
         // this.handleSubmitData.emit(firstName);
         console.log('firstName', firstName);
@@ -196,6 +198,7 @@ export class TableExpanding {
     this.updateTable();
   }
 
+  // TODO: Filters are only applied when we click outside of the input itself.
   Filter({ column, table }: { column: Column<any, any>, table: Table<any> }) {
     const firstValue = table
       .getPreFilteredRowModel()
