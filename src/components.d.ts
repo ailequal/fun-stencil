@@ -21,7 +21,14 @@ export namespace Components {
         "middle": string;
     }
     interface SimpleCounter {
+        "color": string;
+        "decrease_text": string;
+        "increase_text": string;
     }
+}
+export interface SimpleCounterCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSimpleCounterElement;
 }
 declare global {
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
@@ -57,6 +64,10 @@ declare namespace LocalJSX {
         "middle"?: string;
     }
     interface SimpleCounter {
+        "color"?: string;
+        "decrease_text"?: string;
+        "increase_text"?: string;
+        "onDidReset"?: (event: SimpleCounterCustomEvent<string>) => void;
     }
     interface IntrinsicElements {
         "my-component": MyComponent;
