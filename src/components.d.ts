@@ -5,6 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ColumnResizeMode } from "@tanstack/table-core";
 export namespace Components {
     interface EventListener {
     }
@@ -28,6 +29,7 @@ export namespace Components {
         "increase_text": string;
     }
     interface TableColumnSizing {
+        "column_resize_mode": ColumnResizeMode;
     }
 }
 export interface SimpleCounterCustomEvent<T> extends CustomEvent<T> {
@@ -90,6 +92,7 @@ declare namespace LocalJSX {
         "onDidReset"?: (event: SimpleCounterCustomEvent<string>) => void;
     }
     interface TableColumnSizing {
+        "column_resize_mode"?: ColumnResizeMode;
     }
     interface IntrinsicElements {
         "event-listener": EventListener;
