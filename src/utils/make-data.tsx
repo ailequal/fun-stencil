@@ -47,14 +47,13 @@ export function makeData(...lens: number[]) {
   return makeDataLevel();
 }
 
-const data = makeData(10000);
+// Total amount of data available from the fake database.
+const data = makeData(50);
 
-export async function fetchData(options: {
-  pageIndex: number
-  pageSize: number
-}) {
-  // Simulate some network latency
-  await new Promise(r => setTimeout(r, 500));
+// Retrieve the requested data, given a specific page and amount per page.
+export async function fetchData(options: { pageIndex: number, pageSize: number }): Promise<{ rows: Person[], pageCount: number }> {
+  // Simulate some network latency.
+  await new Promise(r => setTimeout(r, 1000));
 
   return {
     rows: data.slice(
