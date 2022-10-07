@@ -34,6 +34,8 @@ export namespace Components {
     interface TableExpanding {
         "checkbox": boolean;
     }
+    interface TablePaginationControlled {
+    }
 }
 export interface SimpleCounterCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -74,12 +76,19 @@ declare global {
         prototype: HTMLTableExpandingElement;
         new (): HTMLTableExpandingElement;
     };
+    interface HTMLTablePaginationControlledElement extends Components.TablePaginationControlled, HTMLStencilElement {
+    }
+    var HTMLTablePaginationControlledElement: {
+        prototype: HTMLTablePaginationControlledElement;
+        new (): HTMLTablePaginationControlledElement;
+    };
     interface HTMLElementTagNameMap {
         "event-listener": HTMLEventListenerElement;
         "my-component": HTMLMyComponentElement;
         "simple-counter": HTMLSimpleCounterElement;
         "table-column-sizing": HTMLTableColumnSizingElement;
         "table-expanding": HTMLTableExpandingElement;
+        "table-pagination-controlled": HTMLTablePaginationControlledElement;
     }
 }
 declare namespace LocalJSX {
@@ -112,12 +121,15 @@ declare namespace LocalJSX {
         "checkbox"?: boolean;
         "onHandleSubmitData"?: (event: TableExpandingCustomEvent<string>) => void;
     }
+    interface TablePaginationControlled {
+    }
     interface IntrinsicElements {
         "event-listener": EventListener;
         "my-component": MyComponent;
         "simple-counter": SimpleCounter;
         "table-column-sizing": TableColumnSizing;
         "table-expanding": TableExpanding;
+        "table-pagination-controlled": TablePaginationControlled;
     }
 }
 export { LocalJSX as JSX };
@@ -129,6 +141,7 @@ declare module "@stencil/core" {
             "simple-counter": LocalJSX.SimpleCounter & JSXBase.HTMLAttributes<HTMLSimpleCounterElement>;
             "table-column-sizing": LocalJSX.TableColumnSizing & JSXBase.HTMLAttributes<HTMLTableColumnSizingElement>;
             "table-expanding": LocalJSX.TableExpanding & JSXBase.HTMLAttributes<HTMLTableExpandingElement>;
+            "table-pagination-controlled": LocalJSX.TablePaginationControlled & JSXBase.HTMLAttributes<HTMLTablePaginationControlledElement>;
         }
     }
 }
