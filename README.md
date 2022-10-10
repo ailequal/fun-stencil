@@ -17,6 +17,12 @@ A table with resizable columns ([source](https://tanstack.com/table/v8/docs/exam
 A table with expanding selectable rows, filters, and
 pagination ([source](https://tanstack.com/table/v8/docs/examples/react/expanding)).
 
+### table-pagination-controlled
+
+A table with data retrieve from an external API. The pagination must be manually updated, since the table itself only
+receives the data regarding the currently requested page of the table
+([source](https://tanstack.com/table/v8/docs/examples/react/pagination-controlled)).
+
 ### event-listener
 
 An event listener for debugging events.
