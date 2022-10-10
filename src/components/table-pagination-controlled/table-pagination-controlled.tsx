@@ -164,6 +164,7 @@ export class TablePaginationControlled {
     return (
       <Host>
         <h2>table-pagination-controlled</h2>
+
         <table>
           <thead>
           {this.table.getHeaderGroups().map(headerGroup => (

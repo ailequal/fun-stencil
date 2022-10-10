@@ -27,7 +27,12 @@ export class TableExpanding {
 
   @State() table: Table<Person>;
 
-  @State() state: TableState | null = null;
+  @State() tableState: TableState | {} = {};
+
+  @Watch('tableState')
+  watchTableStateHandler(newTableState: TableState, oldTableState: TableState) {
+    this.createTable();
+  }
 
   @State() data: Person[] = makeData(100, 5, 3);
 
@@ -144,10 +149,19 @@ export class TableExpanding {
 
   @Event() handleSubmitData: EventEmitter<string>;
 
-  @Watch('state')
-  watchStateHandler(newValue: TableState) {
+  /**
+   * Render the table for the first time.
+   */
+  componentWillLoad() {
+    this.createTable();
+  }
+
+  /**
+   * Create a new table instance based on the component properties.
+   */
+  createTable() {
     this.table = useStencilTable<Person>({
-      state: newValue,
+      state: this.tableState,
       data: this.data,
       columns: this.columns,
       getCoreRowModel: getCoreRowModel(),
@@ -156,20 +170,23 @@ export class TableExpanding {
       getExpandedRowModel: getExpandedRowModel(),
       getSubRows: row => row.subRows,
       onStateChange: (updater) => {
-        this.state = (typeof updater === 'function') ? updater(this.table.getState()) : updater;
+        this.tableState = (typeof updater === 'function') ? updater(this.table.getState()) : updater;
       },
       // debugAll: true,
     });
   }
 
-  componentWillLoad() {
-    this.watchStateHandler(this.state);
+  /**
+   * Refresh the table rendering from scratch by passing the same state as a new variable reference
+   * (this is possible through the Watch() decorator on "tableState").
+   */
+  refreshTable() {
+    this.tableState = { ...this.tableState };
   }
 
-  updateTable(newState: TableState = this.state) {
-    this.state = { ...newState };
-  }
-
+  /**
+   * Submit the selected data inside the table.
+   */
   submitData() {
     // Some examples for retrieving the user selection.
     if (!this.table.getIsSomeRowsSelected() && !this.table.getIsAllRowsSelected()) {
@@ -190,16 +207,26 @@ export class TableExpanding {
       });
   }
 
+  /**
+   * Refresh the table with completely new data to display, while also resetting its initial view.
+   */
   refreshData() {
     this.data = makeData(100, 5, 3);
     this.table.resetRowSelection();
     this.table.resetExpanded();
     this.table.resetPageIndex();
-    this.updateTable();
+    this.refreshTable();
   }
 
-  // TODO: Filters are only applied when we click outside of the input itself.
+  /**
+   * The <Filter> sub-component.
+   *
+   * @param column
+   * @param table
+   * @constructor
+   */
   Filter({ column, table }: { column: Column<any, any>, table: Table<any> }) {
+    // TODO: Filters are only applied when we click outside of the input itself.
     const firstValue = table
       .getPreFilteredRowModel()
       .flatRows[0]?.getValue(column.id);
@@ -252,6 +279,13 @@ export class TableExpanding {
     );
   }
 
+  /**
+   * The <IndeterminateCheckbox> sub-component.
+   *
+   * @param indeterminate
+   * @param rest
+   * @constructor
+   */
   IndeterminateCheckbox({
                           indeterminate,
                           ...rest
@@ -283,7 +317,12 @@ export class TableExpanding {
     );
   }
 
+  /**
+   * The table rendering function.
+   */
   render() {
+    if (!Object.keys(this.table).length) return <h2>table-error</h2>;
+
     return (
       <Host>
         <h2>table-expanding</h2>
