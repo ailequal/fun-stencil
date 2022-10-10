@@ -26,7 +26,12 @@ export class TableColumnSizing {
 
   @State() table: Table<Person>;
 
-  @State() state: TableState | null = null;
+  @State() tableState: TableState | {} = {};
+
+  @Watch('tableState')
+  watchTableStateHandler(newTableState: TableState, oldTableState: TableState) {
+    this.createTable();
+  }
 
   @State() data: Person[] = [
     {
@@ -109,16 +114,25 @@ export class TableColumnSizing {
 
   @Prop() column_resize_mode: ColumnResizeMode = 'onChange';
 
-  @Watch('state')
-  watchStateHandler(newValue: TableState) {
+  /**
+   * Render the table for the first time.
+   */
+  componentWillLoad() {
+    this.createTable();
+  }
+
+  /**
+   * Create a new table instance based on the component properties.
+   */
+  createTable() {
     this.table = useStencilTable<Person>({
-      state: newValue,
+      state: { ...this.tableState },
       data: this.data,
       columns: this.columns,
       columnResizeMode: this.column_resize_mode,
       getCoreRowModel: getCoreRowModel(),
       onStateChange: (updater) => {
-        this.state = (typeof updater === 'function') ? updater(this.table.getState()) : updater;
+        this.tableState = (typeof updater === 'function') ? updater(this.table.getState()) : updater;
       },
       debugTable: true,
       debugHeaders: true,
@@ -126,20 +140,28 @@ export class TableColumnSizing {
     });
   }
 
-  componentWillLoad() {
-    this.watchStateHandler(this.state);
+  /**
+   * Refresh the table rendering from scratch by passing the same state as a new variable reference
+   * (this is possible through the Watch() decorator on "tableState").
+   */
+  refreshTable() {
+    this.tableState = { ...this.tableState };
   }
 
+  /**
+   * Toggle the table column resizing mode between "onEnd" and "onChange".
+   */
   toggleResizeMode() {
     this.column_resize_mode = ('onChange' === this.column_resize_mode) ? 'onEnd' : 'onChange';
-    this.updateTable();
+    this.refreshTable();
   }
 
-  updateTable(newState: TableState = this.state) {
-    this.state = { ...newState };
-  }
-
+  /**
+   * The table rendering function.
+   */
   render() {
+    if (!Object.keys(this.table).length) return <h2>table-error</h2>;
+
     return (
       <Host>
         <h2>table-column-sizing</h2>
