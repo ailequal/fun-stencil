@@ -36,6 +36,8 @@ export namespace Components {
     }
     interface TablePaginationControlled {
     }
+    interface TableSubComponents {
+    }
 }
 export interface SimpleCounterCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -82,6 +84,12 @@ declare global {
         prototype: HTMLTablePaginationControlledElement;
         new (): HTMLTablePaginationControlledElement;
     };
+    interface HTMLTableSubComponentsElement extends Components.TableSubComponents, HTMLStencilElement {
+    }
+    var HTMLTableSubComponentsElement: {
+        prototype: HTMLTableSubComponentsElement;
+        new (): HTMLTableSubComponentsElement;
+    };
     interface HTMLElementTagNameMap {
         "event-listener": HTMLEventListenerElement;
         "my-component": HTMLMyComponentElement;
@@ -89,6 +97,7 @@ declare global {
         "table-column-sizing": HTMLTableColumnSizingElement;
         "table-expanding": HTMLTableExpandingElement;
         "table-pagination-controlled": HTMLTablePaginationControlledElement;
+        "table-sub-components": HTMLTableSubComponentsElement;
     }
 }
 declare namespace LocalJSX {
@@ -123,6 +132,8 @@ declare namespace LocalJSX {
     }
     interface TablePaginationControlled {
     }
+    interface TableSubComponents {
+    }
     interface IntrinsicElements {
         "event-listener": EventListener;
         "my-component": MyComponent;
@@ -130,6 +141,7 @@ declare namespace LocalJSX {
         "table-column-sizing": TableColumnSizing;
         "table-expanding": TableExpanding;
         "table-pagination-controlled": TablePaginationControlled;
+        "table-sub-components": TableSubComponents;
     }
 }
 export { LocalJSX as JSX };
@@ -142,6 +154,7 @@ declare module "@stencil/core" {
             "table-column-sizing": LocalJSX.TableColumnSizing & JSXBase.HTMLAttributes<HTMLTableColumnSizingElement>;
             "table-expanding": LocalJSX.TableExpanding & JSXBase.HTMLAttributes<HTMLTableExpandingElement>;
             "table-pagination-controlled": LocalJSX.TablePaginationControlled & JSXBase.HTMLAttributes<HTMLTablePaginationControlledElement>;
+            "table-sub-components": LocalJSX.TableSubComponents & JSXBase.HTMLAttributes<HTMLTableSubComponentsElement>;
         }
     }
 }
