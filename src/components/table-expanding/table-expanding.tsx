@@ -269,7 +269,7 @@ export class TableExpanding {
         type='text'
         value={(columnFilterValue ?? '') as string}
         onChange={e => {
-          this.table.resetPageIndex();
+          table.resetPageIndex();
           const target = e.target as EventTarget & HTMLInputElement;
           return column.setFilterValue(target.value);
         }
