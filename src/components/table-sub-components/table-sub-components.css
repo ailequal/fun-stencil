@@ -10,6 +10,14 @@ html {
   font-size: 14px;
 }
 
+div.table {
+  border: 3px solid red;
+}
+
+div.table-2 {
+  border: 3px solid deeppink;
+}
+
 table {
   border: 1px solid lightgray;
 }
