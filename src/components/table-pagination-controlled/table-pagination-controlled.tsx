@@ -21,7 +21,7 @@ export class TablePaginationControlled {
   @State() tableState: TableState | {} = {};
 
   @Watch('tableState')
-  watchTableStateHandler(newTableState: TableState, oldTableState: TableState) {
+  watchTableStateHandler() {
     console.log('watchTableStateHandler');
     this.createTable();
   }

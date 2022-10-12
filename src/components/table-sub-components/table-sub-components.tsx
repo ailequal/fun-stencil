@@ -23,13 +23,13 @@ export class TableSubComponents {
   @State() tableState2: TableState | {} = {};
 
   @Watch('tableState')
-  watchTableStateHandler(newTableState: TableState, oldTableState: TableState) {
+  watchTableStateHandler() {
     console.log('watchTableStateHandler');
     this.createTable();
   }
 
   @Watch('tableState2')
-  watchTableStateHandler2(newTableState: TableState, oldTableState: TableState) {
+  watchTableStateHandler2() {
     console.log('watchTableStateHandler2');
     this.createTable2();
   }
@@ -271,6 +271,7 @@ export class TableSubComponents {
    * The <Table> component.
    *
    * @param table
+   * @param table2
    * @param SubComponent
    * @constructor
    */
@@ -401,7 +402,7 @@ export class TableSubComponents {
                   <tr>
                     {/* 2nd row is a custom 1 cell row */}
                     // TODO: How to dynamically handle a third table or even more??
-                      <td>NO SUB COMPONENT PASSED</td>
+                    <td>{typeof SubComponent}</td>
                   </tr>
                 )}
               </Fragment>

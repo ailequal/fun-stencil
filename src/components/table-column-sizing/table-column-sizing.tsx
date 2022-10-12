@@ -29,7 +29,7 @@ export class TableColumnSizing {
   @State() tableState: TableState | {} = {};
 
   @Watch('tableState')
-  watchTableStateHandler(newTableState: TableState, oldTableState: TableState) {
+  watchTableStateHandler() {
     this.createTable();
   }
 
