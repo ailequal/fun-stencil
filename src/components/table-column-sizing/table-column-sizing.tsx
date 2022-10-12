@@ -7,15 +7,7 @@ import {
   TableState,
 } from '@tanstack/table-core';
 import { flexRender, useStencilTable } from '../../utils/stencil-adapter';
-
-export type Person = {
-  firstName: string
-  lastName: string
-  age: number
-  visits: number
-  status: string
-  progress: number
-}
+import { Person } from '../../utils/make-data';
 
 @Component({
   tag: 'table-column-sizing',
@@ -39,7 +31,7 @@ export class TableColumnSizing {
       lastName: 'linsley',
       age: 24,
       visits: 100,
-      status: 'In Relationship',
+      status: 'relationship',
       progress: 50,
     },
     {
@@ -47,7 +39,7 @@ export class TableColumnSizing {
       lastName: 'miller',
       age: 40,
       visits: 40,
-      status: 'Single',
+      status: 'single',
       progress: 80,
     },
     {
@@ -55,7 +47,7 @@ export class TableColumnSizing {
       lastName: 'dirte',
       age: 45,
       visits: 20,
-      status: 'Complicated',
+      status: 'complicated',
       progress: 10,
     },
   ];
